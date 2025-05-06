@@ -2,18 +2,18 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form [formGroup]="formularioRegistro" (ngSubmit)="registrar()">
+                <form [formGroup]="formularioUsuario" (ngSubmit)="registrar()">
                     <h2>Registro</h2>
                     <div class="mb-3">
                         <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
                         <input type="text" id="nombreUsuario" class="form-control" formControlName="nombreUsuario">
                         <div style="font-size: x-small; color: red;"
-                            *ngIf="formularioRegistro.get('nombreUsuario')?.invalid && (formularioRegistro.get('nombreUsuario')?.dirty || formularioRegistro.get('nombreUsuario')?.touched)">
+                            *ngIf="formularioUsuario.get('nombreUsuario')?.invalid && (formularioUsuario.get('nombreUsuario')?.dirty || formularioUsuario.get('nombreUsuario')?.touched)">
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('nombreUsuario')?.hasError('required')">Debe ingresar un
+                                *ngIf="formularioUsuario.get('nombreUsuario')?.hasError('required')">Debe ingresar un
                                 nombre de usuario</p>
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('nombreUsuario')?.hasError('minlength')">El nombre de
+                                *ngIf="formularioUsuario.get('nombreUsuario')?.hasError('minlength')">El nombre de
                                 usuario debe tener al menos 6 caracteres</p>
                         </div>
                     </div>
@@ -21,14 +21,14 @@
                         <label for="mail" class="form-label">Correo electrónico</label>
                         <input type="email" id="mail" class="form-control" formControlName="mail">
                         <div style="font-size: x-small; color: red;"
-                            *ngIf="formularioRegistro.get('mail')?.invalid && (formularioRegistro.get('mail')?.dirty || formularioRegistro.get('mail')?.touched)">
-                            <p class="text-danger" *ngIf="formularioRegistro.get('mail')?.hasError('required')">Debe
+                            *ngIf="formularioUsuario.get('mail')?.invalid && (formularioUsuario.get('mail')?.dirty || formularioUsuario.get('mail')?.touched)">
+                            <p class="text-danger" *ngIf="formularioUsuario.get('mail')?.hasError('required')">Debe
                                 ingresar un correo
                                 electrónico</p>
-                            <p class="text-danger" *ngIf="formularioRegistro.get('mail')?.hasError('email')">El correo
+                            <p class="text-danger" *ngIf="formularioUsuario.get('mail')?.hasError('email')">El correo
                                 electrónico no es
                                 válido</p>
-                            <p class="text-danger" *ngIf="formularioRegistro.get('mail')?.hasError('pattern')">Por favor
+                            <p class="text-danger" *ngIf="formularioUsuario.get('mail')?.hasError('pattern')">Por favor
                                 proporcione una
                                 dirección de correo electrónico válida</p>
                         </div>
@@ -38,22 +38,22 @@
                         <input type="password" id="password" class="form-control" formControlName="password"
                             maxlength="10">
                         <div style="font-size: x-small; color: red;"
-                            *ngIf="formularioRegistro.get('password')?.invalid && (formularioRegistro.get('password')?.dirty || formularioRegistro.get('password')?.touched)">
+                            *ngIf="formularioUsuario.get('password')?.invalid && (formularioUsuario.get('password')?.dirty || formularioUsuario.get('password')?.touched)">
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('password')?.hasError('invalidMayuscula')">Debe
+                                *ngIf="formularioUsuario.get('password')?.hasError('invalidMayuscula')">Debe
                                 contener al menos una letra mayúscula.</p>
-                            <p class="text-danger" *ngIf="formularioRegistro.get('password')?.hasError('invalidMin')">
+                            <p class="text-danger" *ngIf="formularioUsuario.get('password')?.hasError('invalidMin')">
                                 Debe
                                 contener al menos una letra minúscula.</p>
-                            <p class="text-danger" *ngIf="formularioRegistro.get('password')?.hasError('invalidNum')">
+                            <p class="text-danger" *ngIf="formularioUsuario.get('password')?.hasError('invalidNum')">
                                 Debe
                                 contener al menos un número.</p>
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('password')?.hasError('invalidCaracter')">
+                                *ngIf="formularioUsuario.get('password')?.hasError('invalidCaracter')">
                                 Debe
                                 contener al menos un carácter especial (por ejemplo, !, #, $).</p>
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('password')?.hasError('invalidLength')">
+                                *ngIf="formularioUsuario.get('password')?.hasError('invalidLength')">
                                 Debe tener una
                                 longitud mínima, al menos 8 caracteres y máximo 10.</p>
                         </div>
@@ -63,12 +63,12 @@
                         <input type="password" id="repetirPassword" class="form-control"
                             formControlName="repetirPassword">
                         <div style="font-size: x-small; color: red;"
-                            *ngIf="formularioRegistro.get('repetirPassword')?.invalid && (formularioRegistro.get('repetirPassword')?.dirty || formularioRegistro.get('repetirPassword')?.touched)">
+                            *ngIf="formularioUsuario.get('repetirPassword')?.invalid && (formularioUsuario.get('repetirPassword')?.dirty || formularioUsuario.get('repetirPassword')?.touched)">
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('repetirPassword')?.hasError('required')">Debe repetir la
+                                *ngIf="formularioUsuario.get('repetirPassword')?.hasError('required')">Debe repetir la
                                 contraseña</p>
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('repetirPassword')?.hasError('invalidPassRepit')">
+                                *ngIf="formularioUsuario.get('repetirPassword')?.hasError('invalidPassRepit')">
                                 Las contraseñas deben coincidir.</p>
                         </div>
                     </div>
@@ -77,13 +77,13 @@
                         <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
                         <input type="date" formControlName="fechaNacimiento" (change)="validarEdad()" maxlength="10">
                         <div style="font-size: x-small; color: red;"
-                            *ngIf="formularioRegistro.get('fechaNacimiento')?.invalid && (formularioRegistro.get('fechaNacimiento')?.dirty || formularioRegistro.get('fechaNacimiento')?.touched)">
+                            *ngIf="formularioUsuario.get('fechaNacimiento')?.invalid && (formularioUsuario.get('fechaNacimiento')?.dirty || formularioUsuario.get('fechaNacimiento')?.touched)">
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('fechaNacimiento')?.hasError('required')">Debe ingresar
+                                *ngIf="formularioUsuario.get('fechaNacimiento')?.hasError('required')">Debe ingresar
                                 una
                                 fecha de nacimiento</p>
                             <p class="text-danger"
-                                *ngIf="formularioRegistro.get('fechaNacimiento')?.hasError('invalidDate')">Por favor
+                                *ngIf="formularioUsuario.get('fechaNacimiento')?.hasError('invalidDate')">Por favor
                                 ingrese
                                 una fecha valida.</p>
                         </div>
@@ -102,8 +102,8 @@
                             </option>
                         </select>
                         <div style="font-size: x-small; color: red;"
-                            *ngIf="formularioRegistro.get('perfil')?.invalid && (formularioRegistro.get('perfil')?.dirty || formularioRegistro.get('perfil')?.touched)">
-                            <p class="text-danger" *ngIf="formularioRegistro.get('perfil')?.hasError('required')">Debe
+                            *ngIf="formularioUsuario.get('perfil')?.invalid && (formularioUsuario.get('perfil')?.dirty || formularioUsuario.get('perfil')?.touched)">
+                            <p class="text-danger" *ngIf="formularioUsuario.get('perfil')?.hasError('required')">Debe
                                 seleccionar un
                                 perfil.</p>
                         </div>
@@ -111,7 +111,7 @@
 
                     <div class="d-flex justify-content-center" style="flex-direction: column;">
                         <button type="submit" class="btn btn-primary"
-                            [disabled]="!formularioRegistro.valid">Registrar</button>
+                            [disabled]="!formularioUsuario.valid">Registrar</button>
                         <p class="text-center text-muted">Ya tienes una cuenta? <a [routerLink]="['/login']"
                                 class="fw-bold text-body"><u>Inicia Sesión</u></a></p>
                     </div>
