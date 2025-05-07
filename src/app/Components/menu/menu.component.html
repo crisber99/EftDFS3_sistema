@@ -16,7 +16,10 @@
           <div *ngIf="getPerfil()">
             <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/rol']">Perfil</a></li>
           </div>
-          <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/usuario']">Registro</a>
+          <div *ngIf="getPerfil()">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/usuarios']">Usuario</a></li>
+          </div>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/registro']">Registro</a>
           </li>
           <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/login']">Login</a></li>
         </ul>

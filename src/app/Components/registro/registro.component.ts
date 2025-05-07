@@ -45,7 +45,9 @@ export class RegistroComponent {
       password: new FormControl('', [Validators.required, this.passwordFormField]),
       repetirPassword: new FormControl('', [Validators.required]),
       fechaNacimiento: new FormControl('', [Validators.required, this.dateValidator]),
-      perfil: new FormControl('', [Validators.required])
+      perfil: new FormControl('', [Validators.required]),
+      nombre: new FormControl('', [Validators.required]),
+      apPaterno: new FormControl('', [Validators.required])
     }
       , { validators: this.validaPassRepit }
 
@@ -149,16 +151,16 @@ export class RegistroComponent {
   registrar() {
     if (this.formularioRegistro.valid) {
       const usuario = {
-        nombre: "prueba",
-        ap_paterno: "prueba",
         mail: this.formularioRegistro.get('mail')?.value,
         password: this.formularioRegistro.get('password')?.value,
         perfil: this.formularioRegistro.get('perfil')?.value,
-        rut: this.formularioRegistro.get('nombreUsuario')?.value
+        rut: this.formularioRegistro.get('nombreUsuario')?.value,
+        nombre: this.formularioRegistro.get('nombre')?.value,
+        apPaterno: this.formularioRegistro.get('apPaterno')?.value
       };
       console.log(usuario);
 
-      this.apiService.postAddUser(usuario.nombre, usuario.ap_paterno, usuario.mail, usuario.password, usuario.perfil.perfilCod, usuario.rut)
+      this.apiService.postAddUser(usuario.nombre, usuario.apPaterno, usuario.mail, usuario.password, usuario.perfil.perfilCod, usuario.rut)
         .subscribe((data: any) => {
           console.log('Usuario grabado exitosamente:', data);
           this.MjePantalla('ok', 'Usuario registrado exitosamente.')

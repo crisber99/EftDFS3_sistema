@@ -62,7 +62,9 @@ export class LoginComponent {
       this.apiService.postUsuarioLogin(login.nombreUsuario, login.password)
         .subscribe((data: any) => {
           console.log('Inicio de sesión exitoso:', data);
-          this.cookies.set('perfil', data.perfil);
+          this.cookies.set('perfil', data.rol);
+          var nombre = data.nombre + ' ' + data.ap_paterno
+          this.cookies.set('nombre', nombre);
           this.router.navigate(['/home']);
         },
           (error) => {

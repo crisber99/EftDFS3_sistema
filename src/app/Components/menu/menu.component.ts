@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs';
+import { ApiServiceService } from '../../Service/api-service.service';
 
 @Component({
   selector: 'app-menu',
@@ -16,9 +17,10 @@ import { Subject } from 'rxjs';
 export class MenuComponent {
   private destroy$ = new Subject<void>();
   constructor(
-      //private jsonUsuario: UsuarioService,
-      private cookies: CookieService,
-    ) { }
+    //private jsonUsuario: UsuarioService,
+    private cookies: CookieService,
+    private apiService: ApiServiceService,
+  ) { }
 
     Usuarios: any[] = [];
 
@@ -33,11 +35,16 @@ export class MenuComponent {
       this.destroy$.complete();
     }
     
-  getPerfil(){
-    if(this.cookies.get("perfil") != null){
-      if(this.cookies.get('perfil')?.toUpperCase() == 'ADMIN') return true; else return false;
-    }
-    else return false;
+    getPerfil() {
+      const myCookieValue = this.apiService.getCookie('perfil');
+  
+      if (myCookieValue != null) {
+        if (myCookieValue?.toUpperCase() == '1')//1 = ADMIN
+          return true;
+        else
+          return false;
+      }
+      else return false;
 
     location.reload();
   }
