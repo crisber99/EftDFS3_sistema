@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ApiServiceService {
 
-  private urlUsuario = 'http://localhost:8080/usuario';
+  private urlUsuario = 'http://localhost:8080/api/usuario';
 
   constructor(private http: HttpClient,
     private cookieService: CookieService

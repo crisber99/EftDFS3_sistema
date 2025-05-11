@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ApiServiceService } from '../../Service/api-service.service';
 
 @Component({
@@ -17,35 +17,56 @@ import { ApiServiceService } from '../../Service/api-service.service';
 export class MenuComponent {
   private destroy$ = new Subject<void>();
   constructor(
-    //private jsonUsuario: UsuarioService,
+    private router: Router,
     private cookies: CookieService,
     private apiService: ApiServiceService,
   ) { }
 
-    Usuarios: any[] = [];
+  Usuarios: any[] = [];
+  PerfilAdmin: boolean = false;
+  PerfilModerador: boolean = false;
 
-    ngOnInit(): void {
-      // this.jsonUsuario.getJsonDataUsuario().subscribe(data => {
-      //   this.Usuarios = data;
-      // });
+  ngOnInit(): void {
+    // this.jsonUsuario.getJsonDataUsuario().subscribe(data => {
+    //   this.Usuarios = data;
+    // });
+    this.getPerfil();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  getPerfil() {
+    const myCookieValue = this.apiService.getCookie('perfil');
+
+    if (myCookieValue != null) {
+      if (myCookieValue == '1')//1 = ADMIN
+        this.PerfilAdmin = true;
+      else
+        this.PerfilAdmin = false;
+
+      if (myCookieValue == '3')//1 = ADMIN
+        this.PerfilModerador = true;
+      else
+        this.PerfilModerador = false;
+    }
+    else {
+      this.PerfilAdmin = false;
+      this.PerfilModerador = false;
     }
 
-    ngOnDestroy() {
-      this.destroy$.next();
-      this.destroy$.complete();
-    }
-    
-    getPerfil() {
-      const myCookieValue = this.apiService.getCookie('perfil');
-  
-      if (myCookieValue != null) {
-        if (myCookieValue?.toUpperCase() == '1')//1 = ADMIN
-          return true;
-        else
-          return false;
-      }
-      else return false;
+    true;
 
-    location.reload();
+  }
+
+  logout() {
+    const loginUrl = '/home';
+    this.cookies.deleteAll();
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigateByUrl(loginUrl);
+    //window.location.reload();
   }
 }

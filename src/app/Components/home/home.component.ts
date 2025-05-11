@@ -15,6 +15,10 @@ export class HomeComponent {
     private cookies: CookieService,
     private apiService: ApiServiceService,
   ) { }
-  
-public Nombre = this.apiService.getCookie('nombre');
+
+  public Nombre = ""
+
+  ngOnInit(): void {
+    this.Nombre = this.apiService.getCookie('nombre');
+  }
 }

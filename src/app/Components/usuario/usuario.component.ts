@@ -47,13 +47,12 @@ export class UsuarioComponent {
     this.apiService.getUsuarioAll()
       .subscribe((data: any) => {
         console.log('Usuarios:', data);
-        this.Datos = data;
+        this.Datos = data.sort((a: { id: number; }, b: { id: number; }) => a.id - b.id);
       },
         (error) => {
           console.error('Error al obtener los datos', error);
           this.MjePantalla('error', 'Error al obtener los datos. Error: ' + error.message)
         });
-
   }
 
 

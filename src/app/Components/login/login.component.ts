@@ -32,6 +32,7 @@ import { response } from 'express';
 export class LoginComponent {
   formularioLogin!: FormGroup;
   respuesta!: string;
+  isAuthenticated : boolean = false;
 
   constructor(
     private router: Router,
@@ -62,14 +63,19 @@ export class LoginComponent {
       this.apiService.postUsuarioLogin(login.nombreUsuario, login.password)
         .subscribe((data: any) => {
           console.log('Inicio de sesión exitoso:', data);
+          this.isAuthenticated = true;
           this.cookies.set('perfil', data.rol);
           var nombre = data.nombre + ' ' + data.ap_paterno
           this.cookies.set('nombre', nombre);
-          this.router.navigate(['/home']);
+          this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/home']);
+          });
+
         },
           (error) => {
             console.error('Error al obtener los datos', error);
-            this.MjePantalla('error', 'Error al obtener los datos. Error: ' + error.message)
+            this.isAuthenticated = false;
+            this.MjePantalla('error', 'Las credenciales no concuerdan con nuestros registros.')
           });
 
 
